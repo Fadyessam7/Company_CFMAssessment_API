@@ -1,5 +1,4 @@
 # Project Overview
-===================
 - **Purpose:** ASP.NET Core Web API for Employees, Customers, Orders, and Salary.
 - **Technologies:** ASP.NET Core, Entity Framework Core, SQL Server, Swagger (OpenAPI).
 - **Architecture:** RESTful API with layered architecture (Controllers, Services, Repositories).
@@ -12,7 +11,6 @@
 ---
 
 # Database Setup in MSSQL
-=========================
 - **Folder:** Place all SQL scripts in the `SQL` folder.
 - **Run Order:**
   1. Create Database
@@ -27,32 +25,27 @@
 - Install EF Core tools if not already installed:
   ```bash
   dotnet tool install --global dotnet-ef
-
-Install EF Core SQL Server & tools provider if not already installed:
-
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-dotnet add package Microsoft.EntityFrameworkCore.Tools
-
-Scaffold the database:
-
+- Install EF Core SQL Server & tools provider if not already installed:
+    ```bash
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package Microsoft.EntityFrameworkCore.Tools
+    ```
+**Scaffold the database:**
+```bash
 dotnet ef dbcontext scaffold "Server=YOUR_SERVER_NAME;Database=Company;Trusted_Connection=True;MultipleActiveResultSets=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -c CompanyDbContext --use-database-names
+```
+- **Replace YOUR_SERVER_NAME with your actual SQL Server name.**
+-------------------
+. **What is the scaffolding command doing?**
 
-Replace YOUR_SERVER_NAME with your actual SQL Server name.
+- DbContext: Models/CompanyDbContext
+- Entities: Models/Employees.cs, Models/Departments.cs, Models/Customers.cs, Models/Products.cs, Models/Orders.cs
+- Relationships: Navigation properties based on our foreign keys
+----
+**How API Works**
 
-What is the scaffolding command doing?
-
-DbContext: Models/CompanyDbContext
-
-Entities: Models/Employees.cs, Models/Departments.cs, Models/Customers.cs, Models/Products.cs, Models/Orders.cs
-
-Relationships: Navigation properties based on our foreign keys
-
-How API Works
-
-===============
-
-Register DbContext and custom layers in Program.cs
-
+- Register DbContext and custom layers in Program.cs
+```c
 using Company_CFM.Repositories;
 using Company_CFM.Services;
 
@@ -104,9 +97,10 @@ namespace Company_CFM
         }
     }
 }
+```
 
-Repository gets employees with departments
-
+- **Repository gets employees with departments**
+```c
 using Company_CFM.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -128,9 +122,9 @@ namespace Company_CFM.Repositories
         }
     }
 }
-
-Service maps Employee entities to Employee DTOs
-
+```
+- **Service maps Employee entities to Employee DTOs**
+```c
 using Company_CFM.DTOs;
 using Company_CFM.Repositories;
 
@@ -155,9 +149,9 @@ namespace Company_CFM.Services
         }
     }
 }
-
-Controller exposes the endpoint
-
+```
+- **Controller exposes the endpoint**
+```c
 using Company_CFM.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -181,37 +175,34 @@ namespace Company_CFM.Controllers
         }
     }
 }
+```
+- **Other Entities**
 
-Other Entities
+  - All Customers with orders
 
-================
+  - All Orders with Product Names
 
-All Customers with orders
+  - Sum of Employee Salaries By Department
+----
+**Run and Test the API**
+---
 
-All Orders with Product Names
+- **Run the API:**
 
-Sum of Employee Salaries By Department
+  - dotnet run or use Visual Studio to start debugging (F5).
 
-Run and Test the API
+- Open a web browser and navigate to:
 
-======================
+   - https://localhost:5001/swagger/index.html
 
-Run the API:
+- Use Swagger UI to test the endpoints.
 
-dotnet run or use Visual Studio to start debugging (F5).
+**Example Endpoints:**
 
-Open a web browser and navigate to:
+- GET /api/employees → All employees with department name
 
-https://localhost:5001/swagger/index.html
+- GET /api/customers → Customers with orders, product names, and total cost
 
-Use Swagger UI to test the endpoints.
+- GET /api/orders → Orders with product names, descending by order ID
 
-Example Endpoints:
-
-GET /api/employees → All employees with department name
-
-GET /api/customers → Customers with orders, product names, and total cost
-
-GET /api/orders → Orders with product names, descending by order ID
-
-GET /api/salary-sum → Sum of salaries per department
+- GET /api/salary-sum → Sum of salaries per department
