@@ -11,32 +11,32 @@ Project Overview
 ---------------------------------------------------------------
 Database Setup in MSSQL
  ==================
-Folder: Place all SQL scripts in the "SQL" folder.
-Run Order:
+- Folder: Place all SQL scripts in the "SQL" folder.
+- Run Order:
 1. Create Database
 2. Create Tables
 3. Insert Data
 ---------------------------------------------------------------
 EF Core scaffolding (from the database)
 =========================
-. Open terminal/command prompt.
-. install ef core tools if not already installed:
-   dotnet tool install --global dotnet-ef
-.install ef core sql server & tools provider if not already installed:
-   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-   dotnet add package Microsoft.EntityFrameworkCore.Tools
-. Scaffold the database:
-   dotnet ef dbcontext scaffold "Server=YOUR_SERVER_NAME;Database=Company;Trusted_Connection=True;MultipleActiveResultSets=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -c CompanyDbContext --use-database-names
-   **replace YOUR_SERVER_NAME with your actual SQL Server name.**
+- Open terminal/command prompt.
+- install ef core tools if not already installed:
+   - dotnet tool install --global dotnet-ef
+- install ef core sql server & tools provider if not already installed:
+   - dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+   - dotnet add package Microsoft.EntityFrameworkCore.Tools
+- Scaffold the database:
+   - dotnet ef dbcontext scaffold "Server=YOUR_SERVER_NAME;Database=Company;Trusted_Connection=True;MultipleActiveResultSets=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -c CompanyDbContext --use-database-names
+   - **replace YOUR_SERVER_NAME with your actual SQL Server name.**
 
-**What is the scaffolding command doing?**
-DbContext: Models/CompanyDbContext
-Entities: Models/Employees.cs, Models/Departments.cs, Models/Customers.cs, Models/Products.cs, Models/Orders.cs
-Relationships: Navigation properties based on our foreign keys
+- **What is the scaffolding command doing?**
+- DbContext: Models/CompanyDbContext
+- Entities: Models/Employees.cs, Models/Departments.cs, Models/Customers.cs, Models/Products.cs, Models/Orders.cs
+- Relationships: Navigation properties based on our foreign keys
 ---------------------------------------------------------------
-How API Works
+- How API Works
  ==================
-**Register DbContext and custom layers in Program.cs**
+- **Register DbContext and custom layers in Program.cs**
 ==========================
 
 using Company_CFM.Repositories;
@@ -172,12 +172,12 @@ namespace Company_CFM.Controllers
 }
 ----------------------------------------------------------------
 
-**And another entity example - All Customers with orders, All Orders with Products Names, Sum of Employee Salaries By Department**
+- **And another entity example - All Customers with orders, All Orders with Products Names, Sum of Employee Salaries By Department**
 
 
-Run and Test the API
+- Run and Test the API
  ==================
-. Run the API
+- Run the API
    1.dotnet run or use Visual Studio to start debugging (F5).
    2. Open a web browser and navigate to:
 	  https://localhost:5001/swagger/index.html
