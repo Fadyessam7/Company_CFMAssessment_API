@@ -1,9 +1,9 @@
 Project Overview
  ================
- Purpose: ASP.NET Core Web API for Employees, Customers, Orders, and Salary.
- Technologies: ASP.NET Core, Entity Framework Core, SQL Server, Swagger (OpenAPI).
- Architecture: RESTful API with layered architecture (Controllers, Services, Repositories).
- Endpoints: 
+ - Purpose: ASP.NET Core Web API for Employees, Customers, Orders, and Salary.
+ - Technologies: ASP.NET Core, Entity Framework Core, SQL Server, Swagger (OpenAPI).
+ - Architecture: RESTful API with layered architecture (Controllers, Services, Repositories).
+ - Endpoints: 
 	GET/api/employees
 	GET/api/customers
 	GET/api/orders
