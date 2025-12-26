@@ -32,7 +32,7 @@
     ```
 **Scaffold the database:**
 ```bash
-dotnet ef dbcontext scaffold "Server=YOUR_SERVER_NAME;Database=Company;Trusted_Connection=True;MultipleActiveResultSets=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -c CompanyDbContext --use-database-names
+dotnet ef dbcontext scaffold "Server=YOUR_SERVER_NAME;Database=Company;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=True" Microsoft.EntityFrameworkCore.SqlServer -o Models -c CompanyDbContext --use-database-names
 ```
 - **Replace YOUR_SERVER_NAME with your actual SQL Server name.**
 -------------------
